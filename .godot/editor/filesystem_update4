@@ -1,0 +1,4 @@
+res://scenes/main/main.tscn
+res://scenes/pipes/pipes.tscn
+res://scenes/pipes/pipes.gd
+res://scenes/laser/laser.tscn

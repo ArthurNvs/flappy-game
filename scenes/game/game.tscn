@@ -1,0 +1,59 @@
+[gd_scene load_steps=10 format=3 uid="uid://csvv31xo3ejb6"]
+
+[ext_resource type="Script" path="res://scenes/game/game.gd" id="1_2pvma"]
+[ext_resource type="Texture2D" uid="uid://ck8bp4a5dtrk" path="res://assets/background/rocks_2.png" id="1_qv21k"]
+[ext_resource type="PackedScene" uid="uid://dkhpgdaiuj0gc" path="res://scenes/plane/plane.tscn" id="2_r3plb"]
+[ext_resource type="PackedScene" uid="uid://dcwm7ljkmoeew" path="res://scenes/pipes/pipes.tscn" id="2_u1avk"]
+[ext_resource type="PackedScene" uid="uid://dmkpqt4c71prc" path="res://scenes/barrier/barrier.tscn" id="3_uye64"]
+[ext_resource type="PackedScene" uid="uid://b7c1tkarsbon6" path="res://scenes/hud/hud.tscn" id="6_50nx2"]
+[ext_resource type="PackedScene" uid="uid://bbi7mt4tc5uql" path="res://scenes/game_over/game_over.tscn" id="7_x5e37"]
+[ext_resource type="PackedScene" uid="uid://depyahir3dd7s" path="res://scenes/scrolling_bg/scrolling_bg.tscn" id="8_6ri2f"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_s5scl"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_2pvma")
+pipes_scene = ExtResource("2_u1avk")
+
+[node name="Sky" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(0.758646, 0.713851, 0.936451, 1)
+position = Vector2(241, 418.25)
+scale = Vector2(536, 837.5)
+texture = SubResource("CanvasTexture_s5scl")
+
+[node name="Mountains" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(238, 313)
+texture = ExtResource("1_qv21k")
+
+[node name="Plane" parent="." instance=ExtResource("2_r3plb")]
+position = Vector2(141, 542)
+
+[node name="Barrier" parent="." instance=ExtResource("3_uye64")]
+position = Vector2(0, -18)
+
+[node name="Barrier2" parent="." instance=ExtResource("3_uye64")]
+position = Vector2(0, 866)
+
+[node name="PipesHolder" type="Node" parent="."]
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 0.9
+autostart = true
+
+[node name="SpawnU" type="Marker2D" parent="."]
+position = Vector2(530, 340)
+
+[node name="SpawnL" type="Marker2D" parent="."]
+position = Vector2(530, 540)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Hud" parent="CanvasLayer" instance=ExtResource("6_50nx2")]
+
+[node name="GameOver" parent="CanvasLayer" instance=ExtResource("7_x5e37")]
+
+[node name="ScrollingBg" parent="." instance=ExtResource("8_6ri2f")]
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
